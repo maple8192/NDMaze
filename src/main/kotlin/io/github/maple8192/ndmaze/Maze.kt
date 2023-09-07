@@ -16,7 +16,7 @@ sealed class Maze {
     }
     data class Cell(var value: Int) : Maze() {
         override fun toString(): String {
-            return if (value == 1) "@@" else if (value == 2) "$$" else "  "
+            return if (value == 1) "@@" else if (value == 2) "**" else "  "
         }
     }
 
