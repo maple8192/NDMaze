@@ -8,16 +8,41 @@ sealed class Maze {
             }
 
             if (array[0] is Cell) {
-                return array.joinToString(" ") { it.toString() }
+                return array.joinToString("") { it.toString() }
             }
 
             return array.joinToString("\n", postfix = "\n") { it.toString() }
         }
     }
-    data class Cell(val value: Int) : Maze() {
+    data class Cell(var value: Int) : Maze() {
         override fun toString(): String {
-            return value.toString()
+            return if (value == 1) "@@" else "  "
         }
+    }
+
+    fun get(idx: List<Int>): Int {
+        return recGet(idx, 0)
+    }
+
+    private fun recGet(idx: List<Int>, depth: Int): Int {
+        if (depth == idx.size) {
+            return (this as Cell).value
+        }
+
+        return (this as Array).array[idx[depth]].recGet(idx, depth + 1)
+    }
+
+    fun set(idx: List<Int>, value: Int) {
+        return recSet(idx, 0, value)
+    }
+
+    private fun recSet(idx: List<Int>, depth: Int, value: Int) {
+        if (depth == idx.size) {
+            (this as Cell).value = value
+            return
+        }
+
+        (this as Array).array[idx[depth]].recSet(idx, depth + 1, value)
     }
 
     companion object {
