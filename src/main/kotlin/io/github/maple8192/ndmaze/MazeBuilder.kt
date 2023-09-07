@@ -8,7 +8,8 @@ class MazeBuilder(private val size: List<Int>) {
     }
 
     private fun dig(maze: Maze): Maze {
-        return recDig(maze.also { it.set(List(size.size) { 1 }, 0) }, List(size.size) { 1 }, mutableListOf())
+        val start = List(size.size) { i -> Random.nextInt(0, size[i]) * 2 + 1 }
+        return recDig(maze.also { it.set(start, 0) }, start, mutableListOf())
     }
 
     private fun recDig(maze: Maze, idx: List<Int>, path: MutableList<List<Int>>): Maze {
