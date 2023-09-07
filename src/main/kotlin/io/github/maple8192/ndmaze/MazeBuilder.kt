@@ -3,6 +3,15 @@ package io.github.maple8192.ndmaze
 import kotlin.random.Random
 
 class MazeBuilder(private val size: List<Int>) {
+    init {
+        if (size.size <= 1) {
+            throw IllegalArgumentException("The dimension of maze must be more than 1.")
+        }
+        if (size.any { it <= 0 }) {
+            throw IllegalArgumentException("Each size must be more than 0.")
+        }
+    }
+
     fun build(): Maze {
         return dig(Maze.create(size))
     }
